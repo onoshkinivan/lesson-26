@@ -87,11 +87,14 @@ ul>li {
 
 
 /* Символ корзины */
-.fa-trash-can {}
+.fa-trash-can {
+    color: red;
+}
 
 /* Символ чекбокса */
-.fa-square-check {
+.fa-pen {
     margin-right: 20px;
+    color: green;
 }
 
 /* Поведение элемента списка если добавлен класс .done */
