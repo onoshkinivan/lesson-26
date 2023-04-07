@@ -59,8 +59,8 @@ ul>li {
     color: rgba(128, 128, 128, 0.384);
 }
 
-/* Кнопка добавления задачи */
-#addBtn {}
+/* Кнопка добавления задачи 
+#addBtn {}*/
 
 /* Список задач */
 
@@ -87,12 +87,12 @@ ul>li {
 
 
 /* Символ корзины */
-.fa-trash-can {
+.fa-radio {
     color: red;
 }
 
 /* Символ чекбокса */
-.fa-pen {
+.fa-comment-slash {
     margin-right: 20px;
     color: green;
 }

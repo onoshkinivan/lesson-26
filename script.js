@@ -32,7 +32,7 @@ btn.addEventListener('click', function () {
     geb.className = 'item__btns';
 
     let add = document.createElement('i');
-    add.className = 'fa-thin fa-pen';
+    add.className = 'fa-solid fa-comment-slash';
     geb.append(add);
 
     add.addEventListener('click', function () {
@@ -40,7 +40,7 @@ btn.addEventListener('click', function () {
     })
 
     let ge = document.createElement('i');
-    ge.className = 'fa-solid fa-trash-can';
+    ge.className = ' fa-solid fa-radio';
     geb.append(ge);
 
     ge.addEventListener('click', function () {
