@@ -21,6 +21,12 @@ let ul = document.querySelector('#list');
 let btn = document.querySelector('#addBtn');
 
 btn.addEventListener('click', function () {
+    addTask();
+    taskInput.value = '';
+})
+doneTask()
+deleteTask()
+function addTask() {
     let li = document.createElement('li');
     li.className = 'item';
     li.textContent = inp.value;
@@ -35,16 +41,31 @@ btn.addEventListener('click', function () {
     add.className = 'fa-solid fa-comment-slash';
     geb.append(add);
 
-    add.addEventListener('click', function () {
-        li.classList.toggle('done');
-    })
-
     let ge = document.createElement('i');
     ge.className = ' fa-solid fa-radio';
     geb.append(ge);
+}
 
-    ge.addEventListener('click', function () {
-        li.remove();
+function doneTask() {
+
+    ul.addEventListener('click', function (event) {
+        //Найти элемент на которого кликнули
+        let target = event.target
+        //Проверить наличие класса
+        if(target.classList.contains('fa-comment-slash')) {
+        //Добавить класс done родителю
+        target.closest('li').classList.toggle('done');
+        }
+        localStorage.setItem('htmlLS', ul.innerHTML)
     })
-})
+}
 
+function deleteTask() {
+    ul.addEventListener('click', function (event) {
+        let target = event.target
+        //Проверить наличие класса
+        if(target.classList.contains('fa-radio')) {
+        target.closest('li').remove();
+        }
+    })
+}
