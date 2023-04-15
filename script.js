@@ -15,15 +15,17 @@
 //     this.classList.toggle('done');
 // })
 
-
-let inp = document.querySelector('#taskInput');
-let ul = document.querySelector('#list');
-let btn = document.querySelector('#addBtn');
+/*
+const inp = document.querySelector('#taskInput');
+const ul = document.querySelector('#list');
+const btn = document.querySelector('#addBtn');
+let tasks = [];
 
 btn.addEventListener('click', function () {
     addTask();
     taskInput.value = '';
 })
+
 doneTask()
 deleteTask()
 function addTask() {
@@ -52,9 +54,9 @@ function doneTask() {
         //Найти элемент на которого кликнули
         let target = event.target
         //Проверить наличие класса
-        if(target.classList.contains('fa-comment-slash')) {
-        //Добавить класс done родителю
-        target.closest('li').classList.toggle('done');
+        if (target.classList.contains('fa-comment-slash')) {
+            //Добавить класс done родителю
+            target.closest('li').classList.toggle('done');
         }
         localStorage.setItem('htmlLS', ul.innerHTML)
     })
@@ -64,8 +66,62 @@ function deleteTask() {
     ul.addEventListener('click', function (event) {
         let target = event.target
         //Проверить наличие класса
-        if(target.classList.contains('fa-radio')) {
-        target.closest('li').remove();
+        if (target.classList.contains('fa-radio')) {
+            target.closest('li').remove();
         }
     })
+}*/
+
+const addBtn = document.querySelector('#addBtn');
+const taskInput = document.querySelector('#taskInput');
+const list = document.querySelector('#list');
+let tasks = [];
+
+tasks.forEach(task => {
+    const cssClass = task.complete ? "item done" : "item";
+    list.insertAdjacentHTML("beforeend",
+        `<li class="${cssClass}" id="${task.id}">${task.text}
+     <div class="btns">
+          <i class="fa-solid fa-comment-slash" data-action="complete"></i>
+          <i class="fa-solid fa-radio" data-action="delete"></i>
+     </div>
+    </li>`
+    )
+})
+
+list.addEventListener('click', function (event) {
+    let target = event.target
+    if (target.dataset.action == 'complete') {
+        completeBtn();
+    }
+    if (target.dataset.action == 'delete') {
+        removeTask();
+    }
+    writeLS();
+})
+
+addBtn.addEventListener('click', function () {
+    const newItem = document.createElement('li');
+    addTask(newItem);
+    list.append(newItem);
+    taskInput.value = '';
+    writeLS();
+})
+
+function addTask(newItem) {
+    newItem.classList.add('item');
+    newItem.textContent = taskInput.value;
+    const itemBtns = document.createElement('div');
+    newItem.append(itemBtns);
+    itemBtns.className = 'item__btns';
+
+    const doneBtn = document.createElement('i');
+    doneBtn.className = 'fa-solid fa-comment-slash';
+    itemBtns.append(doneBtn);
+    doneBtn.setAttribute('data-action', 'delete')
+
+    const deleteBtn = document.createElement('i');
+    deleteBtn.className = 'fa-solid fa-radio';
+    itemBtns.append(deleteBtn);
+    deleteBtn.setAttribute('data-action', 'delete')
 }
