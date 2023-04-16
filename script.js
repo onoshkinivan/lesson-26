@@ -1,21 +1,3 @@
-// let list = document.createElement('ul');
-// list.className = '#list';
-// let li = document.createElement('input')
-// li.textContent = input.value;
-// li.append(list);
-
-// let geb = document.createElement('div');
-// geb.itemMode(list);
-// geb.className = 'item__btns';
-
-// let i1 = document.querySelector('fa-regular fa-square-check')
-// i1.append('item__btns')
-
-// i1.addEventListener('click', function () {
-//     this.classList.toggle('done');
-// })
-
-/*
 const inp = document.querySelector('#taskInput');
 const ul = document.querySelector('#list');
 const btn = document.querySelector('#addBtn');
@@ -70,12 +52,17 @@ function deleteTask() {
             target.closest('li').remove();
         }
     })
-}*/
+}
 
+/*
 const addBtn = document.querySelector('#addBtn');
 const taskInput = document.querySelector('#taskInput');
 const list = document.querySelector('#list');
 let tasks = [];
+
+if (localStorage.getItem('tasksLS')) {
+    tasks = JSON.parse(localStorage.getItem('tasksLS'))
+}
 
 tasks.forEach(task => {
     const cssClass = task.complete ? "item done" : "item";
@@ -123,5 +110,43 @@ function addTask(newItem) {
     const deleteBtn = document.createElement('i');
     deleteBtn.className = 'fa-solid fa-radio';
     itemBtns.append(deleteBtn);
-    deleteBtn.setAttribute('data-action', 'delete')
+    deleteBtn.setAttribute('data-action', 'delete');
+
+    let newTask = {
+        id: Date.now(),
+        text: taskInput.value,
+        complete: false
+    }
+
+    tasks.push(newTask);
+    newItem.setAttribute('id', newTask.id);
 }
+
+function completeBtn(target) {
+    target.closest('li').classList.toggle('done');
+    let currentId = target.closest('li').id;
+
+    const index = tasks.findIndex((task) => {
+        return task.id == currentId;
+    })
+
+    if (tasks[index].complete == false) {
+        tasks[index].complete = true;
+    } else {
+        tasks[index].complete = false;
+    }
+}
+
+function removeTask(target) {
+    target.closest('li').remove();
+    taskInput.value = '';
+    const index = tasks.findIndex((task) => {
+        return task.id == target.closest('li').id;
+    })
+
+    tasks.splice(index, 1);
+}
+
+function writeLS() {
+    localStorage.setItem('tasksLS', JSON.stringify(tasks))
+}*/
